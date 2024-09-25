@@ -1,7 +1,7 @@
 <?php
 
 $TsURLs = array(
-    "hindi" => "https://prod-sports-hin-cf.jiocinema.com/hls/live/2100322/hd_akamai_iosmob_avc_hin_indvsban_220924/master.m3u8",
+    "hindi" => "https://jcevents.jiocinema.com/bpk-tv/News18_Lokmat_voot_MOB/Fallback/hdntl=exp=1727393073~acl=%2f*~id=09fbd6f8aa0f4e8c977df1202df0045a~data=hdntl~hmac=4ba8ef0137d9bf149a283a202178bfad805ec0af90afe5d1b75382b1a3f7f02b/News18_Lokmat_voot_MOB-audio_33636_eng=33600-video=148000.m3u8",
     "kannada" => "https://prod-sports-south-gm.jiocinema.com/hls/live/2109723/hd_akamai_iosmob_avc_kan_indvsban_220924/master.m3u8",
     "telugu" => "https://prod-sports-south-gm.jiocinema.com/hls/live/2109717/hd_akamai_iosmob_avc_tel_indvsban_220924/master.m3u8",
     "tamil" => "https://prod-sports-south-gm.jiocinema.com/hls/live/2109717/hd_akamai_iosmob_avc_tel_indvsban_220924/master.m3u8",

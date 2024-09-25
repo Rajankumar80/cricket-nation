@@ -9,9 +9,15 @@
 <body>
     
     <h1>Cricket Nation</h1>
-
-    
-
+    <p>Links:</p>
+    <ul>
+        <?php
+        require_once('config.php');
+        foreach ($TsURLs as $key => $value) {
+            echo "<li><a href='/play.php?l=$key'>$key</a></li>";
+        }
+        ?>
+    </ul>
     <script src="./scipt.js"></script>
 </body>
 </html>

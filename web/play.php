@@ -21,60 +21,72 @@ require_once('config.php');
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       let video = document.getElementById("player");
-      let source = "<?php 
-      if (isset($_GET["l"]) && array_key_exists($_GET["l"], $TsURLs))
-      {
+      let source = "<?php
+      if (isset($_GET["l"]) && array_key_exists($_GET["l"], $TsURLs)) {
         echo $TsURLs[$_GET["l"]];
-      }
-      else
-      {
+      } else {
         echo $TsURLs["hindi"];
       }
-       ?>";
-      const defaultOptions = {};
+      ?>";
+    const defaultOptions = {};
 
-      if (Hls.isSupported()) {
-        const hls = new Hls(defaultOptions);
-        hls.loadSource(source);
-        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-          const availableQualities = hls.levels.map((l) => l.height);
-          defaultOptions.controls = [
-            "play-large",
-            "rewind",
-            "play",
-            "fast-forward",
-            "progress",
-            "current-time",
-            "mute",
-            "volume",
-            "captions",
-            "settings",
-            "pip",
-            "fullscreen",
-            "airplay",
-          ];
+    if (Hls.isSupported()) {
+      const hls = new Hls(defaultOptions);
+      hls.loadSource(source);
+      hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+        const availableQualities = hls.levels.map((l) => l.height);
+        availableQualities.unshift(0)
 
-          defaultOptions.quality = {
-            default: availableQualities[0],
-            options: availableQualities,
-            forced: true,
-            onChange: (e) => updateQuality(e),
+        defaultOptions.controls = [
+          "play-large",
+          "rewind",
+          "play",
+          "fast-forward",
+          "progress",
+          "current-time",
+          "mute",
+          "volume",
+          "captions",
+          "settings",
+          "pip",
+          "fullscreen",
+          "airplay",
+        ];
+
+        defaultOptions.quality = {
+          default: 0,
+          options: availableQualities,
+          forced: true,
+          onChange: (e) => updateQuality(e),
+        }
+
+        defaultOptions.i18n = {
+          qualityLabel: {
+            0: "Auto",
           }
+        }
 
-          player = new Plyr(video, defaultOptions);
-        });
 
-        hls.attachMedia(video);
-        window.hls = hls;
+
+        player = new Plyr(video, defaultOptions);
+      });
+
+      hls.attachMedia(video);
+      window.hls = hls;
+    }
+
+    function updateQuality(newQuality) {
+      if (newQuality === 0) {
+        window.hls.currentLevel = -1;
       }
-
-      function updateQuality(newQuality) {
+      else {
         window.hls.levels.forEach((level, levelIndex) => {
           if (level.height === newQuality) {
             window.hls.currentLevel = levelIndex;
           }
         })
       }
+    }
     });
   </script>
 </body>

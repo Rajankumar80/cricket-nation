@@ -21,8 +21,16 @@ require_once('config.php');
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       let video = document.getElementById("player");
-      let source =
-        "https://prod-sports-hin-cf.jiocinema.com/hls/live/2100322/hd_akamai_iosmob_avc_hin_indvsban_220924/master.m3u8";
+      let source = "<?php 
+      if (isset($_GET["l"]) && array_key_exists($_GET["l"], $TsURLs))
+      {
+        echo $TsURLs[$_GET["l"]];
+      }
+      else
+      {
+        echo $TsURLs["hindi"];
+      }
+       ?>";
       const defaultOptions = {};
 
       if (Hls.isSupported()) {
